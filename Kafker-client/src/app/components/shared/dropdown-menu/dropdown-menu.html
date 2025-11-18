@@ -1,0 +1,20 @@
+<div
+  appClickOutside
+  (clickOutside)="onClickedOutside()"
+  [ngClass]="{
+    dropdown: true,
+    'is-active': isActive,
+    'is-right': true,
+  }"
+>
+  <button class="dropdown-trigger" (keypress)="toggleIsActive()" (click)="toggleIsActive()">
+    <span class="icon">
+      <i class="fas fa-ellipsis-vertical"></i>
+    </span>
+  </button>
+  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+    <div class="dropdown-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

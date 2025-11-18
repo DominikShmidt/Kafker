@@ -1,0 +1,50 @@
+<div class="container is-fluid">
+  <app-navbar />
+
+  <!-- left sidebar -->
+  <div class="columns">
+    <div class="column is-2 narrow-col">
+      <div class="box">
+        <a routerLink="/">Dashboard</a>
+      </div>
+      @if (rootStore.clusterIndex() >= 0) {
+        <div class="box">
+          <em>Cluster #{{ rootStore.clusterIndex() }}</em>
+          <app-cluster-side-menu [cluster]="rootStore.clusterIndex()" />
+        </div>
+      }
+      <div class="box cluster-details">
+        @for (cfg of clustersStore.clusters(); track $index) {
+          <details class="mb-3">
+            @if (cfg.isOffline) {
+              <summary title="Cluster offline">
+                <span class="has-text-warning">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>
+                #{{ $index }} {{ cfg.alias }}
+              </summary>
+            } @else {
+              <summary title="Cluster online">
+                <span class="has-text-success">
+                  <i class="fas fa-check-square"></i>
+                </span>
+                #{{ $index }} {{ cfg.alias }}
+              </summary>
+
+              <app-cluster-side-menu [cluster]="$index" />
+            }
+          </details>
+        }
+      </div>
+      <div>
+        <b>DRAFT</b>
+      </div>
+    </div>
+
+    <!-- main content -->
+    <div class="column wide-col">
+      <router-outlet />
+      <app-confirmation-modal />
+    </div>
+  </div>
+</div>

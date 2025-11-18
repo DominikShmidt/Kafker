@@ -1,0 +1,99 @@
+<app-page-wrapper
+  [loading]="topicOverviewStore.loading() || topicSettingsStore.loading()"
+  [error]="topicOverviewStore.error() || topicsStore.error()"
+  [notice]="topicOverviewStore.notice()"
+>
+  @if (topicForm && topicOverviewStore.topicDetails()) {
+    @let topic = topicOverviewStore.topicDetails();
+
+    <form [formGroup]="topicForm">
+      <!-- topic name read-only -->
+      <div class="column">
+        <div class="label">Topic name:</div>
+        <input class="input" type="text" [value]="topic?.name" [disabled]="true" />
+      </div>
+
+      <!-- Number of partitions-->
+      <div class="column is-one-third">
+        <bulma-field
+          label="Number of Partitions"
+          for="numPartitions"
+          [control]="topicForm.get('numPartitions')"
+        >
+          <div class="control">
+            <input
+              class="input"
+              type="number"
+              id="numPartitions"
+              [min]="topic!.partitionCount"
+              formControlName="numPartitions"
+              placeholder="Number of Partitions"
+            />
+          </div>
+        </bulma-field>
+        @if (topicForm.get('numPartitions')?.errors?.['min']) {
+          <p class="help">
+            Must be greater than current partition count: <b>{{ topic?.partitionCount }}</b>
+          </p>
+        }
+      </div>
+
+      <!-- Time to retain data -->
+      <div class="column is-one-third">
+        <bulma-field
+          label="Time to retain data (in ms)"
+          for="timeToRetain"
+          [control]="topicForm.get('timeToRetain')"
+        >
+          <div class="control">
+            <input
+              class="input"
+              type="number"
+              id="timeToRetain"
+              formControlName="timeToRetain"
+              placeholder="Time to retain data (in ms)"
+            />
+          </div>
+        </bulma-field>
+      </div>
+
+      <!-- Cleanup policy -->
+      <div class="column is-one-third">
+        <bulma-field
+          label="Cleanup policy"
+          for="cleanupPolicy"
+          [control]="topicForm.get('cleanupPolicy')"
+        >
+          <ddl-cleanup-policy formControlName="cleanupPolicy" />
+        </bulma-field>
+      </div>
+
+      <!-- Min In Sync Replicas -->
+      <div class="column is-one-third">
+        <bulma-field
+          label="Min In Sync Replicas"
+          for="minInSyncReplicas"
+          [control]="topicForm.get('minInSyncReplicas')"
+        >
+          <div class="control">
+            <input
+              class="input"
+              type="number"
+              id="minInSyncReplicas"
+              min="1"
+              formControlName="minInSyncReplicas"
+              placeholder="Min In Sync Replicas"
+            />
+          </div>
+        </bulma-field>
+      </div>
+    </form>
+
+    <button class="button is-success" [disabled]="topicForm.invalid" (click)="onUpdateTopicClick()">
+      <span class="icon">
+        <i class="fas fa-save"></i>
+      </span>
+      <span>Update Topic</span>
+    </button>
+  }
+</app-page-wrapper>

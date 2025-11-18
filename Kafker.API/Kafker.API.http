@@ -1,0 +1,94 @@
+@Kafker.API_HostAddress = http://localhost:5175
+
+
+GET {{Kafker.API_HostAddress}}/debug/routes
+Accept: application/json
+
+###
+
+GET {{Kafker.API_HostAddress}}/api/clusters
+Accept: application/json
+
+### 
+
+GET {{Kafker.API_HostAddress}}/api/clusters/0
+Accept: application/json
+
+### 
+
+GET {{Kafker.API_HostAddress}}/api/clusters/configs
+Accept: application/json
+
+### 
+
+GET {{Kafker.API_HostAddress}}/api/clusters/0/consumers
+Accept: application/json
+
+###
+
+GET {{Kafker.API_HostAddress}}/api/clusters/0/brokers
+Accept: application/json
+
+### 
+
+GET {{Kafker.API_HostAddress}}/api/clusters/0/brokers/1
+Accept: application/json
+
+### 
+
+GET {{Kafker.API_HostAddress}}/api/clusters/0/topics
+Accept: application/json
+
+###
+GET {{Kafker.API_HostAddress}}/api/clusters/0/topics/configs
+Accept: application/json
+
+
+###
+
+POST {{Kafker.API_HostAddress}}/api/clusters/0/topics
+Content-Type: application/json
+Accept: application/json
+{
+	"name": "topic.666"
+}
+
+###
+
+#DELETE {{Kafker.API_HostAddress}}/api/clusters/0/topics?names=topic&names=topic.666
+#Accept: application/json
+
+### 
+
+DELETE {{Kafker.API_HostAddress}}/api/clusters/0/topics/topic.666
+Accept: application/json
+
+###
+
+GET {{Kafker.API_HostAddress}}/api/clusters/0/topics/teestt
+Accept: application/json
+
+###
+
+GET {{Kafker.API_HostAddress}}/api/clusters/0/topics/__consumer_offsets/messages?partitions=5,13
+Accept: application/json
+
+###
+
+GET {{Kafker.API_HostAddress}}/api/clusters/0/topics/test.3/messages?partitions=0
+Accept: application/json
+
+###
+
+DELETE {{Kafker.API_HostAddress}}/api/clusters/0/topics/test.3/messages
+Accept: application/json
+
+###
+
+GET {{Kafker.API_HostAddress}}/api/clusters/0/topics/test.3/settings
+Accept: application/json
+
+###
+
+GET {{Kafker.API_HostAddress}}/api/clusters/0/topics/test-topic/consumers
+Accept: application/json

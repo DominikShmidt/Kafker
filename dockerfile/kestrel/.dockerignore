@@ -1,0 +1,26 @@
+# Node / Angular
+kafker-client/node_modules
+kafker-client/dist
+
+# .NET build artifacts
+Kafker.API/bin
+Kafker.API/obj
+
+# OS / IDE files
+*.swp
+*.log
+*.tmp
+.vscode
+.idea
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile*
+dockerfile/
+.dockerignore
+
+# Environment / secrets
+.env
